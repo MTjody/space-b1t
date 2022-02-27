@@ -27,6 +27,18 @@
 
 <div class="card-container" class:flip class:active>
   <Card>
+    <Actions>
+      <ActionButtons>
+        <Button class="big heal" disabled={!active} on:click={() => healthBuff++}>
+          <Icon class="material-icons">add_moderator</Icon>
+          <Label>{active ? healthBuff : 0}</Label>
+        </Button>
+        <Button class="big dmg" disabled={!active} on:click={() => damage++}>
+          <Icon class="material-icons">rocket_launch</Icon>
+          <Label>{active ? damage : 0}</Label>
+        </Button>
+      </ActionButtons>
+    </Actions>
     <Content>
       <div class="mdc-typography--headline1">
         {health}
@@ -42,20 +54,12 @@
       </div>
     </Content>
     <Actions>
-      <ActionButtons>
+      <ActionButtons >
         <Button variant="outlined" class="big" disabled={!active} on:click={endTurn}>
           <Label>Done</Label>
         </Button>
         <Button variant="outlined" class="big" disabled={!active} on:click={reset}>
           <Label>Oops</Label>
-        </Button>
-        <Button class="big heal" disabled={!active} on:click={() => healthBuff++}>
-          <Icon class="material-icons">add_moderator</Icon>
-          <Label>{active ? healthBuff : 0}</Label>
-        </Button>
-        <Button class="big dmg" disabled={!active} on:click={() => damage++}>
-          <Icon class="material-icons">rocket_launch</Icon>
-          <Label>{active ? damage : 0}</Label>
         </Button>
       </ActionButtons>
     </Actions>
@@ -65,9 +69,13 @@
 <style>
   div.card-container {
     opacity: 0.7;
-    background-color: honeydew;
+    width: clamp(200px, 80%, 450px);
   }
-
+	@media screen and (orientation: landscape) {
+		div.card-container {
+      width: clamp(200px, 45%, 450px);
+		}
+	}
   * :global(.big) {
     color: #333333;
   }
@@ -79,6 +87,12 @@
     font-size: large;
     color: royalblue;
   }
+
+  * :global(.mdc-card__action-buttons) {
+    width: 100%;
+    justify-content: space-around;
+  }
+
   div.flip {
     transform: rotate(180deg);
   }
